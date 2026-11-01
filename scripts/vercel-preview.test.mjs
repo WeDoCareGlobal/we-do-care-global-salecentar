@@ -11,7 +11,7 @@ test('Vercel staging exposes only SaleCentar read-only preview', async () => {
   assert.match(config.services['salecentar-preview'].buildCommand, /VITE_SALECENTAR_PREVIEW_ONLY=1/);
   assert.match(config.services['salecentar-preview'].buildCommand, /build:v2/);
   assert.equal(config.services['salecentar-preview'].outputDirectory, 'dist-v2');
-  assert.deepEqual(config.rewrites, [{ source: '/(.*)', destination: { service: 'salecentar-preview' } }]);
+  assert.deepEqual(config.rewrites, [{ source: '/((?!api(?:/|$)).*)', destination: { service: 'salecentar-preview' } }]);
   assert.ok(!Object.hasOwn(config.services, 'integration'), 'no public or internal Shopify backend build');
 });
 
