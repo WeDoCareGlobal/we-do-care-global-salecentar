@@ -8,7 +8,7 @@ test('Vercel exposes only read-only frontend; backend remains excluded', async (
   const c = JSON.parse(await read('vercel.json'));
   assert.deepEqual(Object.keys(c.services), ['salecentar-preview']);
   assert.deepEqual(c.rewrites, [
-    {source:'/(.*)',destination:{service:'salecentar-preview'}}
+    {source:'/((?!api(?:/|$)).*)',destination:{service:'salecentar-preview'}}
   ]);
   assert.equal(c.services['salecentar-preview'].root, 'apps/salecentar');
   assert.match(c.services['salecentar-preview'].buildCommand, /VITE_SALECENTAR_PREVIEW_ONLY=1/);
